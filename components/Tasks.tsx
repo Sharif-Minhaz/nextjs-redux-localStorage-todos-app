@@ -9,15 +9,31 @@ import {
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { CheckCircle, Circle, Pencil, Trash2 } from "lucide-react";
 import Link from "next/link";
+import Pagination from "./Pagination";
+import { useSearchParams } from "next/navigation";
 
 export default function Tasks() {
+	const searchParams = useSearchParams();
+
+	const currentPage = Number(searchParams.get("page")) || 1;
+
 	const dispatch = useAppDispatch();
 	const searchTerm = useAppSelector(selectSearchTerm);
 	const filteredTodos = useAppSelector((state) => selectFilteredTodos(state, searchTerm));
+
+	// pagination logic
+	const itemsPerPage = 5;
 	// @ts-ignore
 	const sortedTodos = [...filteredTodos].sort((a, b) => b.id - a.id);
 
-	if (!sortedTodos.length) {
+	// Calculate the start and end index for the current page
+	const startIndex = (currentPage - 1) * itemsPerPage;
+	const endIndex = startIndex + itemsPerPage;
+
+	// Slice the sortedTodos array to get the todos for the current page
+	const todosForCurrentPage = sortedTodos.slice(startIndex, endIndex);
+
+	if (!todosForCurrentPage.length) {
 		<p className="p-3">No. todo available.</p>;
 	}
 
@@ -33,7 +49,7 @@ export default function Tasks() {
 
 	return (
 		<div className="flex flex-col gap-4 mt-4">
-			{sortedTodos.map((todo) => (
+			{todosForCurrentPage.map((todo) => (
 				<div
 					key={todo.id}
 					className={`shadow-md rounded-lg px-3.5 py-5 ${
@@ -65,6 +81,10 @@ export default function Tasks() {
 					</div>
 				</div>
 			))}
+
+			<div className="flex justify-center mb-3">
+				<Pagination totalPages={Math.ceil(sortedTodos.length / 5) || 1} />
+			</div>
 		</div>
 	);
 }
