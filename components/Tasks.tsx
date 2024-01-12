@@ -33,8 +33,8 @@ export default function Tasks() {
 	// Slice the sortedTodos array to get the todos for the current page
 	const todosForCurrentPage = sortedTodos.slice(startIndex, endIndex);
 
-	if (!todosForCurrentPage.length) {
-		<p className="p-3">No. todo available.</p>;
+	if (todosForCurrentPage.length === 0) {
+		return <p className="p-3">No. todo available.</p>;
 	}
 
 	const deleteATodo = (event: React.MouseEvent<SVGSVGElement, MouseEvent>, id: number) => {
