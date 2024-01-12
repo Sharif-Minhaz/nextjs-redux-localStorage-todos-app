@@ -8,7 +8,7 @@ const Tasks = dynamic(() => import("@/components/Tasks"), { ssr: false });
 
 export default function Home() {
 	return (
-		<div className="">
+		<div>
 			<div className="flex gap-2 mt-3 items-center">
 				<Search placeholder="Search todo..." />
 				<Link href="/todos/create">
