@@ -16,7 +16,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en">
-			<body className={`${inter.className} bg-slate-100 px-4 pb-4`}>
+			<body
+				className={`${inter.className} bg-slate-100 px-4 pb-4 bg-[url('/images/bg.svg')] bg-fixed bg-cover`}
+			>
 				<StoreProvider>
 					<main className="h-screen max-w-[600px] mx-auto mb-4">
 						<div className="sticky top-0 bg-white py-2 rounded-b-md z-20 shadow-md">

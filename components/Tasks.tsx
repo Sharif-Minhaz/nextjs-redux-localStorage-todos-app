@@ -11,6 +11,7 @@ import { CheckCircle, Circle, Pencil, Trash2 } from "lucide-react";
 import Link from "next/link";
 import Pagination from "./Pagination";
 import { useSearchParams } from "next/navigation";
+import { convertTime } from "@/lib/utils";
 
 export default function Tasks() {
 	const searchParams = useSearchParams();
@@ -57,9 +58,13 @@ export default function Tasks() {
 					}  flex justify-between`}
 				>
 					<Link href={`/todos/${todo.id}`}>
-						<span className={todo.completed ? "line-through" : ""}>{todo.title}</span>
+						<span className={todo.completed ? "line-through" : ""}>{todo.title}</span> -{" "}
+						<span className="text-sm text-slate-500">
+							{" "}
+							added at {convertTime(Number(todo.id))}
+						</span>
 					</Link>
-					<div className="flex gap-3">
+					<div className="pl-2 flex gap-3">
 						<Trash2
 							onClick={(e) => deleteATodo(e, Number(todo.id))}
 							className="text-red-500 cursor-pointer"

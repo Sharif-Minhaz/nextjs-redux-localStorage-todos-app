@@ -1,9 +1,7 @@
-import TodoForm from "@/components/TodoForm";
+import dynamic from "next/dynamic";
+
+const EditTask = dynamic(() => import("@/components/EditTask"), { ssr: false });
 
 export default function EditTodoList({ params }: { params: { id: string } }) {
-	return (
-		<div className="mt-3">
-			<TodoForm todoId={params.id} />
-		</div>
-	);
+	return <EditTask todoId={params.id} />;
 }

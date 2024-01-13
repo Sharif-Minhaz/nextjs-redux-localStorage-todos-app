@@ -22,3 +22,37 @@ export const generatePagination = (currentPage: number, totalPages: number) => {
 	// another ellipsis, and the last page.
 	return [1, "...", currentPage - 1, currentPage, currentPage + 1, "...", totalPages];
 };
+
+export function convertTime(timestamp: number) {
+	// Create a new Date object using the timestamp
+	const date = new Date(timestamp);
+
+	// Define an array of month names
+	const monthNames = [
+		"Jan",
+		"Feb",
+		"Mar",
+		"Apr",
+		"May",
+		"Jun",
+		"Jul",
+		"Aug",
+		"Sep",
+		"Oct",
+		"Nov",
+		"Dec",
+	];
+
+	// Get the day, month, and year
+	const day = date.getDate();
+	const month = monthNames[date.getMonth()];
+	const year = date.getFullYear();
+
+	// Get the day of the week and format it to three letters
+	const dayOfWeek = date.toLocaleDateString("en-US", { weekday: "short" });
+
+	// Output the formatted date
+	const formattedDate = `${dayOfWeek} ${day} ${month} ${year}`;
+
+	return formattedDate;
+}
